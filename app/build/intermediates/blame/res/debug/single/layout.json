@@ -76,16 +76,16 @@
         "source": "/Users/lsyang/andriod/MySimpleTweets/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.2.0/res/layout/support_simple_spinner_dropdown_item.xml"
     },
     {
-        "merged": "/Users/lsyang/andriod/MySimpleTweets/app/build/intermediates/res/merged/debug/layout/abc_action_menu_item_layout.xml",
-        "source": "/Users/lsyang/andriod/MySimpleTweets/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.2.0/res/layout/abc_action_menu_item_layout.xml"
+        "merged": "/Users/lsyang/andriod/MySimpleTweets/app/build/intermediates/res/merged/debug/layout/abc_activity_chooser_view.xml",
+        "source": "/Users/lsyang/andriod/MySimpleTweets/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.2.0/res/layout/abc_activity_chooser_view.xml"
     },
     {
         "merged": "/Users/lsyang/andriod/MySimpleTweets/app/build/intermediates/res/merged/debug/layout/abc_screen_simple.xml",
         "source": "/Users/lsyang/andriod/MySimpleTweets/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.2.0/res/layout/abc_screen_simple.xml"
     },
     {
-        "merged": "/Users/lsyang/andriod/MySimpleTweets/app/build/intermediates/res/merged/debug/layout/abc_activity_chooser_view.xml",
-        "source": "/Users/lsyang/andriod/MySimpleTweets/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.2.0/res/layout/abc_activity_chooser_view.xml"
+        "merged": "/Users/lsyang/andriod/MySimpleTweets/app/build/intermediates/res/merged/debug/layout/abc_action_menu_item_layout.xml",
+        "source": "/Users/lsyang/andriod/MySimpleTweets/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.2.0/res/layout/abc_action_menu_item_layout.xml"
     },
     {
         "merged": "/Users/lsyang/andriod/MySimpleTweets/app/build/intermediates/res/merged/debug/layout/design_menu_item_action_area.xml",
@@ -154,6 +154,10 @@
     {
         "merged": "/Users/lsyang/andriod/MySimpleTweets/app/build/intermediates/res/merged/debug/layout/abc_action_bar_title_item.xml",
         "source": "/Users/lsyang/andriod/MySimpleTweets/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.2.0/res/layout/abc_action_bar_title_item.xml"
+    },
+    {
+        "merged": "/Users/lsyang/andriod/MySimpleTweets/app/build/intermediates/res/merged/debug/layout/fragment_compose_tweet.xml",
+        "source": "/Users/lsyang/andriod/MySimpleTweets/app/src/main/res/layout/fragment_compose_tweet.xml"
     },
     {
         "merged": "/Users/lsyang/andriod/MySimpleTweets/app/build/intermediates/res/merged/debug/layout/design_navigation_item_header.xml",

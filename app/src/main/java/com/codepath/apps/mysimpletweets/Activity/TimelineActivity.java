@@ -1,10 +1,21 @@
-package com.codepath.apps.mysimpletweets;
+package com.codepath.apps.mysimpletweets.Activity;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.codepath.apps.mysimpletweets.ComposeTweetFragment;
+import com.codepath.apps.mysimpletweets.ComposeTweetFragment.ComposeTweetListener;
+import com.codepath.apps.mysimpletweets.R;
+import com.codepath.apps.mysimpletweets.TweetsArrayAdapter;
+import com.codepath.apps.mysimpletweets.TwitterApplication;
+import com.codepath.apps.mysimpletweets.TwitterClient;
 import com.codepath.apps.mysimpletweets.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -15,7 +26,7 @@ import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
-public class TimelineActivity extends AppCompatActivity {
+public class TimelineActivity extends AppCompatActivity implements ComposeTweetListener {
 
     private TwitterClient client;
     private ArrayList<Tweet> tweets;
@@ -27,6 +38,9 @@ public class TimelineActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         lvTweets = (ListView) findViewById(R.id.lvTweets);
         tweets = new ArrayList<>();
         aTweets = new TweetsArrayAdapter(this, tweets);
@@ -34,6 +48,12 @@ public class TimelineActivity extends AppCompatActivity {
 
         client = TwitterApplication.getRestClient(); // singleton client
         populateTimeline();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_timeline, menu);
+        return true;
     }
 
     // send API request and fill the listview by creating the tweet objects from json
@@ -62,5 +82,17 @@ public class TimelineActivity extends AppCompatActivity {
                 Log.d("DEBUG", "onFailure: " + responseString);
             }
         });
+    }
+
+    public void onComposeAction(MenuItem item) {
+        //bring up the compose modal
+        FragmentManager fm = getSupportFragmentManager();
+        ComposeTweetFragment composeTweetFragment = ComposeTweetFragment.newInstance("Compose");
+        composeTweetFragment.show(fm, "fragment_compose_tweet");
+    }
+
+    @Override
+    public void onFinishComposeDialog(String inputText) {
+        Toast.makeText(this, inputText, Toast.LENGTH_SHORT).show();
     }
 }

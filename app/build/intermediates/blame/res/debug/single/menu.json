@@ -2,5 +2,9 @@
     {
         "merged": "/Users/lsyang/andriod/MySimpleTweets/app/build/intermediates/res/merged/debug/menu/login.xml",
         "source": "/Users/lsyang/andriod/MySimpleTweets/app/src/main/res/menu/login.xml"
+    },
+    {
+        "merged": "/Users/lsyang/andriod/MySimpleTweets/app/build/intermediates/res/merged/debug/menu/menu_timeline.xml",
+        "source": "/Users/lsyang/andriod/MySimpleTweets/app/src/main/res/menu/menu_timeline.xml"
     }
 ]

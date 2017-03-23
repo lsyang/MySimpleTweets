@@ -2,5 +2,9 @@
     {
         "merged": "/Users/lsyang/andriod/MySimpleTweets/app/build/intermediates/res/merged/debug/drawable-xxhdpi/ic_launcher.png",
         "source": "/Users/lsyang/andriod/MySimpleTweets/app/src/main/res/drawable-xxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/lsyang/andriod/MySimpleTweets/app/build/intermediates/res/merged/debug/drawable-xxhdpi/ic_compose.png",
+        "source": "/Users/lsyang/andriod/MySimpleTweets/app/build/generated/res/pngs/debug/drawable-xxhdpi/ic_compose.png"
     }
 ]
