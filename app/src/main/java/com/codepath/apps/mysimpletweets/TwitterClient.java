@@ -1,7 +1,9 @@
 package com.codepath.apps.mysimpletweets;
 
 import android.content.Context;
+import android.util.Log;
 
+import com.codepath.apps.mysimpletweets.Activity.TimelineActivity;
 import com.codepath.oauth.OAuthBaseClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -34,15 +36,24 @@ public class TwitterClient extends OAuthBaseClient {
 
 	// METHOD == Endpoint
 	// HomeTimeline == Get us the home timeline
-	public void getHomeTimeline(AsyncHttpResponseHandler handler) {
+	public void getHomeTimeline(AsyncHttpResponseHandler handler, long maxId) {
 		String apiUrl = getApiUrl("statuses/home_timeline.json");
 		RequestParams params = new RequestParams();
 		params.put("count", 25);
-		params.put("since_id", 1);
+		if (maxId != TimelineActivity.INITIAL_MAX_ID) {
+			params.put("max_id", maxId - 1);
+		}
+		Log.d("param", "getHomeTimeline: " + params);
 		getClient().get(apiUrl, params, handler);
 	}
 
 	// COMPOSE TWEET
+	public void postTweet(AsyncHttpResponseHandler handler, String status) {
+		String apiUrl = getApiUrl("statuses/update.json");
+		RequestParams params = new RequestParams();
+		params.put("status", status);
+		getClient().post(apiUrl, params, handler);
+	}
 
 	/* 1. Define the endpoint URL with getApiUrl and pass a relative path to the endpoint
 	 * 	  i.e getApiUrl("statuses/home_timeline.json");

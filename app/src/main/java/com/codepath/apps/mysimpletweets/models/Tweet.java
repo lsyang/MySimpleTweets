@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -11,7 +12,7 @@ import java.util.ArrayList;
  */
 
 // Parse the Json and store and data.
-public class Tweet {
+public class Tweet implements Serializable {
     // list out the attributes we care about
     private User user;
     private String body;

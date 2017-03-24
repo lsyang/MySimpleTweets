@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.codepath.apps.mysimpletweets.ComposeTweetFragment;
 import com.codepath.apps.mysimpletweets.ComposeTweetFragment.ComposeTweetListener;
+import com.codepath.apps.mysimpletweets.EndlessScrollListener;
 import com.codepath.apps.mysimpletweets.R;
 import com.codepath.apps.mysimpletweets.TweetsArrayAdapter;
 import com.codepath.apps.mysimpletweets.TwitterApplication;
@@ -32,6 +33,7 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetL
     private ArrayList<Tweet> tweets;
     private TweetsArrayAdapter aTweets;
     private ListView lvTweets;
+    public static final long INITIAL_MAX_ID = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +49,20 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetL
         lvTweets.setAdapter(aTweets);
 
         client = TwitterApplication.getRestClient(); // singleton client
-        populateTimeline();
+        populateTimeline(INITIAL_MAX_ID);
+
+        lvTweets.setOnScrollListener(new EndlessScrollListener() {
+            @Override
+            public boolean onLoadMore(int page, int totalItemsCount) {
+                // Triggered only when new data needs to be appended to the list
+                // Add whatever code is needed to append new items to your AdapterView
+                populateTimeline(aTweets.getMaxID());
+                // or loadNextDataFromApi(totalItemsCount);
+                return true; // ONLY if more data is actually being loaded; false otherwise.
+            }
+        });
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -57,7 +71,7 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetL
     }
 
     // send API request and fill the listview by creating the tweet objects from json
-    private void populateTimeline() {
+    private void populateTimeline(long maxId) {
         client.getHomeTimeline(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
@@ -74,6 +88,7 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetL
             public void onFailure(int statusCode, Header[] headers, Throwable throwable,
                     JSONObject errorResponse) {
                 Log.d("Debug", "onFailure: " + errorResponse.toString());
+                Toast.makeText(getApplicationContext(), errorResponse.optString("errors"), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -81,7 +96,7 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetL
                     Throwable throwable) {
                 Log.d("DEBUG", "onFailure: " + responseString);
             }
-        });
+        }, maxId);
     }
 
     public void onComposeAction(MenuItem item) {
@@ -92,7 +107,8 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetL
     }
 
     @Override
-    public void onFinishComposeDialog(String inputText) {
-        Toast.makeText(this, inputText, Toast.LENGTH_SHORT).show();
+    public void onFinishComposeDialog(Tweet tweet) {
+        tweets.add(0, tweet);
+        aTweets.notifyDataSetChanged();
     }
 }
