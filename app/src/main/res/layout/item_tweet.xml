@@ -28,24 +28,27 @@
         android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/tvBody"
+        android:layout_below="@+id/tvScreenName"
+        android:layout_toEndOf="@+id/ivProfileImage"/>
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/tvScreenName"
-        android:paddingLeft="10dp"
-        android:layout_toRightOf="@+id/tvUserName"/>
+        android:layout_toRightOf="@+id/ivProfileImage"
+        android:layout_toEndOf="@+id/ivProfileImage"
+        android:layout_below="@+id/tvUserName"/>
 
     <TextView
         android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tvTimeAgo"
-        android:paddingLeft="10dp"
-        android:layout_toRightOf="@+id/tvScreenName"/>
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/tvBody"
-        android:layout_toRightOf="@+id/ivProfileImage"
-        android:layout_toEndOf="@+id/ivProfileImage"
-        android:layout_below="@+id/tvScreenName"/>
+        android:paddingLeft="5dp"
+        android:layout_alignBaseline="@+id/tvScreenName"
+        android:layout_alignBottom="@+id/tvScreenName"
+        android:layout_toRightOf="@+id/tvScreenName"
+        android:layout_toEndOf="@+id/tvScreenName"/>
 </RelativeLayout>
