@@ -3,7 +3,7 @@ package com.codepath.apps.mysimpletweets;
 import android.content.Context;
 import android.util.Log;
 
-import com.codepath.apps.mysimpletweets.Activity.TimelineActivity;
+import com.codepath.apps.mysimpletweets.fragments.HomeTimelineFragment;
 import com.codepath.oauth.OAuthBaseClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -40,7 +40,7 @@ public class TwitterClient extends OAuthBaseClient {
 		String apiUrl = getApiUrl("statuses/home_timeline.json");
 		RequestParams params = new RequestParams();
 		params.put("count", 25);
-		if (maxId != TimelineActivity.INITIAL_MAX_ID) {
+		if (maxId != HomeTimelineFragment.INITIAL_MAX_ID) {
 			params.put("max_id", maxId - 1);
 		}
 		Log.d("param", "getHomeTimeline: " + params);
@@ -53,6 +53,29 @@ public class TwitterClient extends OAuthBaseClient {
 		RequestParams params = new RequestParams();
 		params.put("status", status);
 		getClient().post(apiUrl, params, handler);
+	}
+
+	public void getMentionsTimeline(AsyncHttpResponseHandler handler, long maxId) {
+		String apiUrl = getApiUrl("statuses/mentions_timeline.json");
+		RequestParams params = new RequestParams();
+		params.put("count", 25);
+		if (maxId != HomeTimelineFragment.INITIAL_MAX_ID) {
+			params.put("max_id", maxId - 1);
+		}
+		Log.d("param", "getMentionsTimeline: " + params);
+		getClient().get(apiUrl, params, handler);
+	}
+
+	public void getUserTimeline(AsyncHttpResponseHandler handler) {
+		String apiUrl = getApiUrl("statuses/user_timeline.json");
+		RequestParams params = new RequestParams();
+		params.put("count", 25);
+		getClient().get(apiUrl, params, handler);
+	}
+
+	public void	getUserInfo(AsyncHttpResponseHandler handler) {
+		String apiUrl = getApiUrl("account/verify_credentials.json");
+		getClient().get(apiUrl, null, handler);
 	}
 
 	/* 1. Define the endpoint URL with getApiUrl and pass a relative path to the endpoint

@@ -44,6 +44,10 @@
         "source": "/Users/lsyang/andriod/MySimpleTweets/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.2.0/res/drawable/abc_tab_indicator_material.xml"
     },
     {
+        "merged": "/Users/lsyang/andriod/MySimpleTweets/app/build/intermediates/res/merged/debug/drawable/background_tab.xml",
+        "source": "/Users/lsyang/andriod/MySimpleTweets/app/build/intermediates/exploded-aar/com.astuetz/pagerslidingtabstrip/1.0.1/res/drawable/background_tab.xml"
+    },
+    {
         "merged": "/Users/lsyang/andriod/MySimpleTweets/app/build/intermediates/res/merged/debug/drawable/abc_ratingbar_material.xml",
         "source": "/Users/lsyang/andriod/MySimpleTweets/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.2.0/res/drawable/abc_ratingbar_material.xml"
     },
