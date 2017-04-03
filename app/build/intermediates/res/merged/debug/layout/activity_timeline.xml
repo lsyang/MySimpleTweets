@@ -14,7 +14,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:titleTextColor="@android:color/white"
-    android:background="@color/accent_material_dark">
+    android:background="@color/material_blue_grey_800">
     </android.support.v7.widget.Toolbar>
 
     <com.astuetz.PagerSlidingTabStrip

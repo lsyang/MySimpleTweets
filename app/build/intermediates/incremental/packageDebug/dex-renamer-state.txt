@@ -1,4 +1,4 @@
-#Sun Apr 02 19:53:18 PDT 2017
+#Sun Apr 02 20:10:40 PDT 2017
 base.0=/Users/lsyang/andriod/MySimpleTweets/app/build/intermediates/transforms/dex/debug/folders/1000/1f/main
 renamed.0=classes.dex
 file.0=/Users/lsyang/andriod/MySimpleTweets/app/build/intermediates/transforms/dex/debug/folders/1000/1f/main/classes.dex
