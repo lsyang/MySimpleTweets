@@ -29,7 +29,7 @@ public class UserTimelineFragment extends TweetsListFragment{
         super.onCreate(savedInstanceState);
 
         client = TwitterApplication.getRestClient(); // singleton client
-        populateTimeline();
+        populateTimeline(0, false);
     }
 
     public static UserTimelineFragment newInstance(String screen_name) {
@@ -41,7 +41,8 @@ public class UserTimelineFragment extends TweetsListFragment{
     }
 
     // send API request and fill the listview by creating the tweet objects from json
-    public void populateTimeline() {
+    @Override
+    public void populateTimeline(long maxId, final boolean isRefresh) {
         String screenName = getArguments().getString("screen_name");
         client.getUserTimeline(new JsonHttpResponseHandler() {
             @Override
@@ -50,7 +51,7 @@ public class UserTimelineFragment extends TweetsListFragment{
                 // create model
                 //load into listview
                 ArrayList<Tweet> newTweets = Tweet.fromJsonArray(response);
-                addAll(newTweets, false);
+                addAll(newTweets, isRefresh);
                 // Log.d("Debug", "onSuccess: " + aTweets.toString());
             }
 
@@ -66,6 +67,6 @@ public class UserTimelineFragment extends TweetsListFragment{
                     Throwable throwable) {
                 Log.d("DEBUG", "onFailure: " + responseString);
             }
-        });
+        }, screenName);
     }
 }

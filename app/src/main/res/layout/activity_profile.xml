@@ -6,16 +6,21 @@
     android:id="@+id/activity_profile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.codepath.apps.mysimpletweets.Activity.ProfileActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/profile_toolbar"
+        android:minHeight="?attr/actionBarSize"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:titleTextColor="@android:color/white"
+        android:background="@color/accent_material_dark">
+    </android.support.v7.widget.Toolbar>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/profile_toolbar"
         android:id="@+id/rlUserHeader">
 
         <TextView
@@ -53,10 +58,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/llCounts"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
         android:layout_below="@id/rlUserHeader"
-        android:layout_marginTop="66dp">
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="30dp">
 
         <TextView
             android:text="TextView"
@@ -76,8 +80,10 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/llCounts"
+        android:id="@+id/flContainer"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/flContainer">
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/llCounts">
     </FrameLayout>
 </RelativeLayout>

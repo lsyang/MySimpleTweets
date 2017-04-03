@@ -3,8 +3,10 @@ package com.codepath.apps.mysimpletweets;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -18,6 +20,8 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
+import static android.content.ContentValues.TAG;
+
 /**
  * Created by lsyang on 3/21/17.
  */
@@ -26,9 +30,22 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
 
     private long maxId = Long.MAX_VALUE;
     private long sinceId = 1;
+    private OnItemSelectedListener profileListener;
 
     public TweetsArrayAdapter(Context context, List<Tweet> tweets) {
         super(context, android.R.layout.simple_list_item_1, tweets);
+        if (context instanceof OnItemSelectedListener) {
+            profileListener = (OnItemSelectedListener) context;
+        } else {
+            throw new ClassCastException(context.toString()
+                    + " must implement TweetsArrayAdapter.OnItemSelectedListener");
+        }
+    }
+
+    // Define the events that the fragment will use to communicate
+    public interface OnItemSelectedListener {
+        // This can be any number of events to be sent to the activity
+        public void onProfileImageClicked(String screeName);
     }
 
     @NonNull
@@ -63,6 +80,16 @@ public class TweetsArrayAdapter extends ArrayAdapter<Tweet> {
 
         ivProfileImage.setImageResource(android.R.color.transparent);
         Picasso.with(getContext()).load(tweet.getUser().getProfielImageUrl()).into(ivProfileImage);
+        ivProfileImage.setTag(R.id.ivProfileImage, tweet.getUser().getScreenName());
+
+
+        ivProfileImage.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: " + v);
+                profileListener.onProfileImageClicked((String) v.getTag(R.id.ivProfileImage));
+            }
+        });
         return convertView;
     }
 

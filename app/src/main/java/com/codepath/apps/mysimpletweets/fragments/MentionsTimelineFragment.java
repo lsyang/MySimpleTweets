@@ -34,6 +34,7 @@ public class MentionsTimelineFragment extends TweetsListFragment {
     }
 
     // send API request and fill the listview by creating the tweet objects from json
+    @Override
     public void populateTimeline(long maxId, final boolean isRefresh) {
         client.getMentionsTimeline(new JsonHttpResponseHandler() {
             @Override

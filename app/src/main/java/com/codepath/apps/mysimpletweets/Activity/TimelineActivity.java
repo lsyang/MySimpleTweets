@@ -12,19 +12,29 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.astuetz.PagerSlidingTabStrip;
-import com.codepath.apps.mysimpletweets.ComposeTweetFragment;
-import com.codepath.apps.mysimpletweets.ComposeTweetFragment.ComposeTweetListener;
 import com.codepath.apps.mysimpletweets.R;
+import com.codepath.apps.mysimpletweets.TweetsArrayAdapter;
+import com.codepath.apps.mysimpletweets.fragments.ComposeTweetFragment;
+import com.codepath.apps.mysimpletweets.fragments.ComposeTweetFragment.ComposeTweetListener;
 import com.codepath.apps.mysimpletweets.fragments.HomeTimelineFragment;
 import com.codepath.apps.mysimpletweets.fragments.MentionsTimelineFragment;
 import com.codepath.apps.mysimpletweets.models.Tweet;
 
-public class TimelineActivity extends AppCompatActivity implements ComposeTweetListener {
+import java.util.ArrayList;
+
+public class TimelineActivity extends AppCompatActivity
+        implements TweetsArrayAdapter.OnItemSelectedListener, ComposeTweetListener {
+
+    HomeTimelineFragment _homeTimelineFragment;
+    MentionsTimelineFragment _mentionsTimelineFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
+        _homeTimelineFragment = new HomeTimelineFragment();
+        _mentionsTimelineFragment = new MentionsTimelineFragment();
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -64,9 +74,22 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetL
     @Override
     public void onFinishComposeDialog(Tweet tweet) {
         // TODO: refactor this
+//        FragmentManager fm = getSupportFragmentManager();
+//        HomeTimelineFragment timelineFragment = new HomeTimelineFragment();
+        ArrayList<Tweet> tweets = new ArrayList<Tweet>();
+        tweets.add(0, tweet);
+        _homeTimelineFragment.addAll(tweets, true);
+
 //        tweets.add(0, tweet);
 //        aTweets.notifyDataSetChanged();
 //        lvTweets.setSelectionAfterHeaderView();
+    }
+
+     @Override
+    public void onProfileImageClicked(String screeName) {
+            Intent intent = new Intent(this, ProfileActivity.class);
+            intent.putExtra("screen_name", screeName);
+            startActivity(intent);
     }
 
     public class TweetsPagerAdapter extends FragmentPagerAdapter {
@@ -79,9 +102,9 @@ public class TimelineActivity extends AppCompatActivity implements ComposeTweetL
         @Override
         public Fragment getItem(int position) {
             if (position == 0) {
-                return new HomeTimelineFragment();
+                return _homeTimelineFragment;
             } else if (position == 1) {
-                return new MentionsTimelineFragment();
+                return _mentionsTimelineFragment;
             } else {
                 return null;
             }

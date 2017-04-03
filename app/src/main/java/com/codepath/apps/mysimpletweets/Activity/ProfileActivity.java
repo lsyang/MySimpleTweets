@@ -3,11 +3,13 @@ package com.codepath.apps.mysimpletweets.Activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.codepath.apps.mysimpletweets.R;
+import com.codepath.apps.mysimpletweets.TweetsArrayAdapter;
 import com.codepath.apps.mysimpletweets.TwitterApplication;
 import com.codepath.apps.mysimpletweets.TwitterClient;
 import com.codepath.apps.mysimpletweets.fragments.UserTimelineFragment;
@@ -19,7 +21,7 @@ import org.json.JSONObject;
 
 import cz.msebera.android.httpclient.Header;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity implements TweetsArrayAdapter.OnItemSelectedListener {
     TwitterClient _client;
     User user;
 
@@ -28,12 +30,16 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         _client = TwitterApplication.getRestClient(); // singleton client
+        String screenName = getIntent().getStringExtra("screen_name");
+        Toolbar toolbar = (Toolbar) findViewById(R.id.profile_toolbar);
+        setSupportActionBar(toolbar);
+
         _client.getUserInfo(new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 user = User.fromJson(response);
                 // My current user account info
-                //getSupportActionBar().setTitle("@" + user.getScreenName());
+                getSupportActionBar().setTitle("@" + user.getScreenName());
                 populateProfileHeader(user);
             }
 
@@ -42,8 +48,8 @@ public class ProfileActivity extends AppCompatActivity {
                     JSONObject errorResponse) {
                 Log.d("debug", "onFailure: " + errorResponse);
             }
-        });
-        String screenName = getIntent().getStringExtra("screen_name");
+        }, screenName);
+
         if (savedInstanceState == null) {
             UserTimelineFragment fragmentUserTimeline = UserTimelineFragment.newInstance(screenName);
             // Display user fragment within this activity (dynamically)
@@ -62,9 +68,14 @@ public class ProfileActivity extends AppCompatActivity {
 
         tvName.setText(user.getName());
         tvTagline.setText(user.getTagline());
-        tvFollowers.setText(user.getFollowersCount() + "Followers");
-        tvFollowing.setText(user.getFollowingCount() + "Following");
+        tvFollowers.setText(user.getFollowersCount() + " Followers");
+        tvFollowing.setText(user.getFollowingCount() + " Following");
         Picasso.with(this).load(user.getProfielImageUrl()).into(ivProfileImage);
 
+    }
+
+    @Override
+    public void onProfileImageClicked(String screeName) {
+        // don't need to do anything since you are already on the profile
     }
 }

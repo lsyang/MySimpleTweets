@@ -35,6 +35,7 @@ public class HomeTimelineFragment extends TweetsListFragment {
     }
 
     // send API request and fill the listview by creating the tweet objects from json
+    @Override
     public void populateTimeline(long maxId, final boolean isRefresh) {
         client.getHomeTimeline(new JsonHttpResponseHandler() {
             @Override
